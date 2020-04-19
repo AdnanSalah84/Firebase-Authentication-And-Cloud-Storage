@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Welcome</title>
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="./css/styles.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
+</head>
+
+<body>
+
+  <div class="container">
+    <h2>Firebase Authentication & Cloud Storage</h2>
+    <!-- <p>To make the tabs toggleable, add the data-toggle="tab" attribute to each link. Then add a .tab-pane class with a unique ID for every tab and wrap them inside a div element with class .tab-content.</p> -->
+
+    <ul class="nav nav-tabs">
+      <li class="active"><a data-toggle="tab" href="#home">Home</a></li>
+      <li><a data-toggle="tab" href="#login">Log In</a></li>
+      <li><a data-toggle="tab" href="#register">Register </a></li>
+      <li><a data-toggle="tab" href="#emailLink">Email Link </a></li>
+      <li><a data-toggle="tab" href="#phone">Phone Number</a></li>
+      <li><a data-toggle="tab" href="#files">Files</a></li>
+    </ul>
+
+    <div class="tab-content">
+      <div id="home" class="tab-pane fade in active">
+        <h3>HOME</h3>
+        <p>This is a sample app.</p>
+        <button class="btn btn-default" onclick="getProfileData()"> Get Profile</button>
+        <button class="btn btn-danger" onclick="logout()"> Log Out</button>
+        <button class="btn btn-info" onclick="updateProfile()"> Update Profile</button>
+
+        <button class="btn btn-default" onclick="verifyUser()"> Verify User</button>
+        <button class="btn btn-danger" onclick="deleteUser()"> Delete User</button>
+        <button class="btn btn-info" onclick="resetPassword()"> Reset Password</button>
+      </div>
+
+      <div id="login" class="tab-pane fade">
+        <div id="message">
+          <h2>Welcome</h2>
+          <h1>Enter your credentials to log in</h1>
+          <div>
+            <form>
+              <div class="form-group">
+                <label for="emailLogin">Email address</label>
+                <input type="emailLogin" class="form-control" id="emailLogin" placeholder="Enter email">
+              </div>
+              <div class="form-group">
+                <label for="passwordLogin">Password</label>
+                <input type="password" class="form-control" id="passwordLogin" placeholder="Password">
+              </div>
+            </form>
+          </div>
+          <div class="text-center">
+            <button type="button" class="btn btn-success"
+              onclick="logIn(document. getElementById('emailLogin').value, document. getElementById('passwordLogin').value)">Log
+              In</button>
+
+            <hr>
+            <button class="btn btn-default" onclick="signInGoogle()"> Google</button>
+            <button class="btn btn-default" onclick="signInFacebook()"> Facebook</button>
+            <button class="btn btn-default" onclick="signInTwitter()"> Twitter</button>
+            <button class="btn btn-default" onclick="signInGithub()"> Github</button>
+          </div>
+        </div>
+      </div>
+
+      <div id="register" class="tab-pane fade">
+        <div id="message">
+          <h2>Welcome</h2>
+          <h1>Create a new account</h1>
+          <div>
+            <form>
+              <div class="form-group">
+                <label for="emailRegister">Email address</label>
+                <input type="emailRegister" class="form-control" id="emailRegister" placeholder="Enter email">
+              </div>
+              <div class="form-group">
+                <label for="passwordRegister">Password</label>
+                <input type="password" class="form-control" id="passwordRegister" placeholder="Password">
+              </div>
+            </form>
+          </div>
+          <div class="text-center">
+            <button type="button" class="btn btn-primary"
+              onclick="register(document.getElementById('emailRegister').value, document.getElementById('passwordRegister').value)">Register</button>
+          </div>
+        </div>
+      </div>
+
+      <div id="emailLink" class="tab-pane fade">
+        <div id="message">
+          <h2>Welcome</h2>
+          <h1>Enter your email address to receive a link</h1>
+          <div>
+            <form>
+              <div class="form-group">
+                <label for="emailAddress">Email address</label>
+                <input type="emailAddress" class="form-control" id="emailAddress" placeholder="Enter email">
+              </div>
+            </form>
+          </div>
+          <div class="text-center">
+            <button type="button" class="btn btn-success"
+              onclick="sendLink(document.getElementById('emailAddress').value)">Send Link</button>
+            <button type="button" class="btn btn-success" onclick="anonymousLogin()">Anonymous Log In</button>
+          </div>
+        </div>
+      </div>
+
+      <div id="phone" class="tab-pane fade">
+        <div id="message">
+          <h2>Welcome</h2>
+          <h1>Enter your phone number to log in</h1>
+          <div>
+            <form>
+              <div class="form-group">
+                <label for="phoneNum">Phone Number</label>
+                <input type="text" class="form-control" id="phoneNum" placeholder="Phone number">
+              </div>
+              <div id="recaptcha-security"></div>
+            </form>
+          </div>
+          <div class="text-center">
+            <button type="button" class="btn btn-success"
+              onclick="numberLogin(document.getElementById('phoneNum').value)">Login</button>
+          </div>
+        </div>
+      </div>
+
+      <div id="files" class="tab-pane fade">
+        <div id="message">
+          <h2>files</h2>
+          <h1>Choose a file to upload</h1>
+          <div class="custom-file mb-3">
+            <input type="file" class="custom-file-input" id="customFile" name="filename">
+          </div>
+          <div>
+            <img id="myimg" width="320" height="180" />
+          </div>
+          <div>
+            <button type="button" class="btn btn-success"
+              onclick="uploadFile(document.getElementById('customFile').value)">Upload</button>
+
+            <button type="button" class="btn btn-success" onclick="showFile()">Show</button>
+
+            <button type="button" class="btn btn-success" onclick="deleteFile()">Delete</button>
+
+            <button type="button" class="btn btn-success" onclick="getAllFiles()">Get All</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
+  <script src="https://www.gstatic.com/firebasejs/7.14.0/firebase-app.js"></script>
+
+  <!-- If you enabled Analytics in your project, add the Firebase SDK for Analytics -->
+  <script src="https://www.gstatic.com/firebasejs/7.14.0/firebase-analytics.js"></script>
+
+  <!-- Add Firebase products that you want to use -->
+  <script src="https://www.gstatic.com/firebasejs/7.14.0/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.14.0/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.14.0/firebase-storage.js"></script>
+
+  <script>
+    // TODO: Replace the following with your app's Firebase project configuration
+    var firebaseConfig = {
+      apiKey: "AIzaSyAQ44_puEquM5qigwFvAF3VahZknAr5D6A",
+      authDomain: "fir-project-b157c.firebaseapp.com",
+      storageBucket: "gs://fir-project-b157c.appspot.com"
+    };
+
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+  </script>
+  <script src="./scripts/storage-scripts.js"></script>
+  <script src="./scripts/other-auth.js"></script>
+  <script src="./scripts/auth-providers.js"></script>
+  <script src="./scripts/functions.js"></script>
+</body>
+
+</html>

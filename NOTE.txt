@@ -1,0 +1,19 @@
+> npm install -g firebase-tools
+> firebase serve --debug
+> firebase serve
+
+
+
+> firebase login
+> firebase use --add
+
+https://github.com/firebase/firebase-tools#using-with-ci-systems
+
+https://console.cloud.google.com/
+* Select Project
+* Click Activate Cloud Shell [On top right side]
+> echo '[{"origin": ["*"], "method": ["GET"], "maxAgeSeconds": 3600}]' > cors-origin.json
+> gsutil cors set cors-config.json gs://fir-project-b157c.appspot.com
+> gsutil cors get gs://fir-project-b157c.appspot.com
+
+https://firebase.google.com/docs/storage/web/handle-errors
